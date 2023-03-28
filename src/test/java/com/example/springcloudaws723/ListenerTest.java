@@ -1,6 +1,7 @@
 package com.example.springcloudaws723;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,11 @@ class ListenerTest {
 
     void sendTestMessage() {
         client.sendMessage(req -> req.messageBody("test").queueUrl(getQueueUrl()));
+    }
+
+    @BeforeEach
+    void createQueue() {
+        client.createQueue(req -> req.queueName("test-queue"));
     }
 
     @AfterEach
